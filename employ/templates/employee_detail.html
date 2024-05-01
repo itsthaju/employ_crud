@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Detail</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .employee-detail-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .employee-detail-card img {
+            max-width: 200px;
+            margin-top: 10px;
+        }
+        .employee-detail-card p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <h1 class="mb-4">Employee Detail</h1>
+        <div class="employee-detail-card">
+            <p><strong>First Name:</strong> {{ employee.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ employee.last_name }}</p>
+            <p><strong>Employee Code:</strong> {{ employee.employee_code }}</p>
+            <p><strong>Email:</strong> {{ employee.email }}</p>
+            <p><strong>Contact No:</strong> {{ employee.contact_no }}</p>
+            <p><strong>Department:</strong> {{ employee.department }}</p>
+            {% if employee.profile_image %}
+                <p><strong>Profile Image:</strong></p>
+                <img src="{{ employee.profile_image.url }}" alt="Profile Image">
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional, only if you need JavaScript features) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

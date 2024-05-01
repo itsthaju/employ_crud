@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .employee-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .employee-card img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+        .btn-action {
+            margin-right: 5px;
+        }
+        .add-employee-link {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <h1 class="mb-4">Employee List</h1>
+        
+        <!-- Department Filter -->
+        <form method="get">
+            <div class="form-group">
+                <label for="department">Filter by Department:</label>
+                <select id="department" name="department" class="form-control">
+                    <option value="">All Departments</option>
+                    {% for department in departments %}
+                        <option value="{{ department.id }}" {% if department.id == selected_department %}selected{% endif %}>{{ department.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Filter</button>
+        </form>
+        
+        <!-- Employee Cards -->
+        {% for employee in employees %}
+            <div class="employee-card">
+                <strong>Name:</strong> {{ employee.first_name }} {{ employee.last_name }}<br>
+                <strong>Employee Code:</strong> {{ employee.employee_code }}<br>
+                <strong>Email:</strong> {{ employee.email }}<br>
+                <strong>Contact No:</strong> {{ employee.contact_no }}<br>
+                <strong>Department:</strong> {{ employee.department }}<br>
+                {% if employee.profile_image %}
+                    <img src="{{ employee.profile_image.url }}" alt="Profile Image"><br>
+                {% endif %}
+                <a href="{% url 'employee_detail' employee.id %}" class="btn btn-primary btn-action">View Details</a>
+                <a href="{% url 'employee_update' employee.id %}" class="btn btn-info btn-action">Update</a>
+                <a href="{% url 'employee_delete' employee.id %}" class="btn btn-danger btn-action">Delete</a>
+            </div>
+        {% endfor %}
+        
+        <!-- Add Employee Link -->
+        <a href="{% url 'employee_create' %}" class="add-employee-link btn btn-success">Add Employee</a>
+    </div>
+
+    <!-- Bootstrap JS (Optional, only if you need JavaScript features) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

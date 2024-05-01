@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .dashboard-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .dashboard-container h2 {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .dashboard-container p {
+            margin-bottom: 10px;
+        }
+        .update-profile-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 1px solid #007bff;
+        }
+        .update-profile-link:hover {
+            color: #0056b3;
+            border-bottom-color: #0056b3;
+        }
+        .profile-image {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container dashboard-container">
+        <h2>Welcome, {{ employee.user.username }}</h2>  <!-- Assuming 'user' is the user field in the 'Employee' model -->
+        <p>Employee Code: {{ employee.employee_code }}</p>
+        <p>Email: {{ employee.email }}</p>  <!-- Assuming 'user' is the user field in the 'Employee' model -->
+        <p>Contact No: {{ employee.contact_no }}</p>
+        <!-- Add more details as needed -->
+        {% if employee.profile_image %}
+            <img src="{{ employee.profile_image.url }}" alt="Profile Image" class="profile-image">
+        {% endif %}
+        <a href="{% url 'employee_update' employee.id %}" class="update-profile-link">Update Profile</a>
+    </div>
+
+    <!-- Bootstrap JS (Optional, only if you need JavaScript features) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
